@@ -63,7 +63,7 @@ export function ChatBox() {
       {/* Chat bubble — always visible */}
       <button
         onClick={() => { setIsOpen(!isOpen); setUnread(0); }}
-        className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-xl hover:bg-primary/90 hover:scale-110 transition-all flex items-center justify-center animate-bounce-slow"
+        className="fixed bottom-6 right-6 z-[9999] h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-xl hover:bg-primary/90 hover:scale-110 transition-all flex items-center justify-center animate-pulse"
         title="Chat chung"
       >
         <svg className="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,7 +78,7 @@ export function ChatBox() {
 
       {/* Chat panel */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-80 h-[420px] bg-card rounded-xl border shadow-2xl flex flex-col">
+        <div className="fixed bottom-24 right-6 z-[9999] w-80 h-[420px] bg-card rounded-xl border shadow-2xl flex flex-col">
           <div className="flex items-center justify-between p-3 border-b bg-muted/30">
             <h3 className="font-semibold text-sm flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
