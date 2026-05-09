@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { CarouselBanner } from "@/components/home/CarouselBanner";
+import { HeroSlider } from "@/components/home/HeroSlider";
 import { TabFilter } from "@/components/home/TabFilter";
 import { ThreadList } from "@/components/home/ThreadList";
 import { HotPostsSidebar } from "@/components/home/HotPostsSidebar";
@@ -52,7 +52,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       {/* Hero Banner Section */}
       <section className="bg-card border-b">
         <div className="mx-auto max-w-7xl px-4 py-6">
-          <CarouselBanner banners={banners} />
+          <HeroSlider />
         </div>
       </section>
 
