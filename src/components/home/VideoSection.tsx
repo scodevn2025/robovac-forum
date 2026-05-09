@@ -1,59 +1,30 @@
 "use client";
 
 import { useState, useRef } from "react";
-import Link from "next/link";
 
 interface VideoSectionProps {
   locale: string;
 }
 
-const VIDEOS = [
+// Local MP4 videos from ERP
+const LOCAL_VIDEOS = [
   {
-    ytId: "8l6VH8P9Z5Y",
-    title: "Roborock S8 MaxV Ultra Review Sau 6 Tháng",
-    channel: "Vacuum Wars",
-    views: "256K",
-    duration: "18:24",
+    src: "/videos/mova-mobius-60.mp4",
+    poster: "/banners/slide-mova.jpg",
+    title: "MOVA MOBIUS 60 — Robot hút bụi thông minh",
+    desc: "Công nghệ LiDAR + AI — làm sạch mọi ngóc ngách",
   },
   {
-    ytId: "KjYx3Hq9W2M",
-    title: "Dreame X40 Ultra — Đánh Giá Chi Tiết Từ A-Z",
-    channel: "Jamie Andrews",
-    views: "189K",
-    duration: "22:15",
-  },
-  {
-    ytId: "NpR7vL4F8T3",
-    title: "Robot Hút Bụi 5 Triệu vs 30 Triệu: Khác Biệt Thế Nào?",
-    channel: "Linus Tech Tips",
-    views: "445K",
-    duration: "14:50",
-  },
-  {
-    ytId: "QmW5xY2zA6B",
-    title: "Top 5 Robot Hút Bụi Tốt Nhất Cho Nhà Có Thú Cưng",
-    channel: "Tech Spurt",
-    views: "178K",
-    duration: "12:38",
-  },
-  {
-    ytId: "RtY8uI3oP1L",
-    title: "Setup Robot Hút Bụi Cho Nhà 3 Tầng — Mẹo Hay",
-    channel: "Smart Home Solver",
-    views: "92K",
-    duration: "8:55",
-  },
-  {
-    ytId: "SwE2dR6fT9G",
-    title: "Roborock Q Revo — Review Sau 1 Năm: Có Đáng Mua?",
-    channel: "The Hook Up",
-    views: "134K",
-    duration: "16:42",
+    src: "/videos/mova-z60-roller.mp4",
+    poster: "/banners/slide-roborock.jpg",
+    title: "MOVA Z60 Roller — Chổi roller cải tiến",
+    desc: "Công nghệ chổi roller — sạch gấp đôi, bền gấp 3",
   },
 ];
 
 export function VideoSection({ locale }: VideoSectionProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [playing, setPlaying] = useState<number | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const isVi = locale === "vi";
@@ -68,8 +39,7 @@ export function VideoSection({ locale }: VideoSectionProps) {
   function scroll(dir: "left" | "right") {
     const el = scrollRef.current;
     if (!el) return;
-    const amount = el.clientWidth * 0.8;
-    el.scrollBy({ left: dir === "left" ? -amount : amount, behavior: "smooth" });
+    el.scrollBy({ left: dir === "left" ? -el.clientWidth * 0.8 : el.clientWidth * 0.8, behavior: "smooth" });
     setTimeout(checkScroll, 400);
   }
 
@@ -87,9 +57,6 @@ export function VideoSection({ locale }: VideoSectionProps) {
               </span>
               {isVi ? "Video Review Robot Hút Bụi" : "Robot Vacuum Video Reviews"}
             </h2>
-            <p className="text-sm text-muted-foreground mt-1 ml-10">
-              {isVi ? "Review thực tế từ các kênh YouTube hàng đầu" : "Real reviews from top YouTube channels"}
-            </p>
           </div>
 
           <div className="flex items-center gap-1">
@@ -114,51 +81,51 @@ export function VideoSection({ locale }: VideoSectionProps) {
           </div>
         </div>
 
-        {/* Horizontal scroll container */}
+        {/* Video grid */}
         <div
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex gap-3 overflow-x-auto px-5 md:px-6 pb-6 pt-3 scrollbar-hide snap-x snap-mandatory"
+          className="flex gap-4 overflow-x-auto px-5 md:px-6 pb-6 pt-3 snap-x snap-mandatory"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {VIDEOS.map((video, i) => (
-            <a
-              key={i}
-              href={`https://youtube.com/watch?v=${video.ytId}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex-shrink-0 w-[280px] md:w-[320px] snap-start"
-            >
-              {/* Thumbnail */}
-              <div className="relative rounded-xl overflow-hidden aspect-video bg-muted mb-3 shadow-md group-hover:shadow-xl transition-shadow">
-                <img
-                  src={`https://img.youtube.com/vi/${video.ytId}/mqdefault.jpg`}
-                  alt={video.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-                {/* Play button overlay */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="h-12 w-12 rounded-full bg-black/60 flex items-center justify-center group-hover:bg-red-600 group-hover:scale-110 transition-all">
-                    <svg className="size-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
+          {LOCAL_VIDEOS.map((video, i) => (
+            <div key={i} className="flex-shrink-0 w-[340px] md:w-[480px] lg:w-[560px] snap-start">
+              <div className="relative rounded-xl overflow-hidden bg-black shadow-lg group">
+                {playing === i ? (
+                  <video
+                    autoPlay
+                    controls
+                    className="w-full aspect-video"
+                    poster={video.poster}
+                    onEnded={() => setPlaying(null)}
+                  >
+                    <source src={video.src} type="video/mp4" />
+                  </video>
+                ) : (
+                  <div className="relative aspect-video cursor-pointer" onClick={() => setPlaying(i)}>
+                    <img
+                      src={video.poster}
+                      alt={video.title}
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Play button overlay */}
+                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/40 transition-colors">
+                      <div className="h-16 w-16 rounded-full bg-white/90 flex items-center justify-center group-hover:bg-red-500 group-hover:scale-110 transition-all shadow-xl">
+                        <svg className="size-8 text-black group-hover:text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                    {/* Duration badge */}
+                    <span className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-0.5 rounded font-medium">
+                      ▶ Video
+                    </span>
                   </div>
-                </div>
-                {/* Duration badge */}
-                <span className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-1.5 py-0.5 rounded font-medium">
-                  {video.duration}
-                </span>
+                )}
               </div>
-
-              {/* Info */}
-              <h3 className="text-sm font-semibold line-clamp-2 group-hover:text-primary transition-colors leading-snug">
-                {video.title}
-              </h3>
-              <p className="text-xs text-muted-foreground mt-1">
-                {video.channel} · {video.views} lượt xem
-              </p>
-            </a>
+              <h3 className="text-sm font-semibold mt-2">{video.title}</h3>
+              <p className="text-xs text-muted-foreground mt-0.5">{video.desc}</p>
+            </div>
           ))}
         </div>
       </div>
