@@ -7,6 +7,7 @@ import { ToastProvider } from "@/components/shared/Toast";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { ChatBox } from "@/components/shared/ChatBox";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { NotificationDropdown } from "@/components/shared/NotificationDropdown";
@@ -31,6 +32,7 @@ export const viewport: Viewport = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await getLocale();
+  const dict = await getDictionary(locale);
 
   return (
     <html lang={locale} className={cn(geistSans.variable, geistMono.variable)} suppressHydrationWarning>
@@ -38,7 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <SessionProvider>
           <ToastProvider>
             <TooltipProvider>
-              <Header locale={locale} />
+              <Header locale={locale} navLabels={dict.nav as Record<string, string>} commonLabels={dict.common as Record<string, string>} />
               <div className="fixed top-3 right-4 z-[60] flex items-center gap-1">
                 <NotificationDropdown />
                 <ThemeToggle />

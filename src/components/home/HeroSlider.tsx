@@ -110,13 +110,13 @@ export function HeroSlider() {
         {/* Text content */}
         <div className="relative z-10 flex flex-col justify-center h-full px-6 md:px-12 lg:px-16 max-w-2xl">
           <h1 className={cn(
-            "text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-3 transition-all duration-700",
+            "text-xl md:text-4xl lg:text-5xl font-bold text-white mb-2 md:mb-3 transition-all duration-700 max-w-sm md:max-w-none",
             isTransitioning ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
           )}>
             {slide.title}
           </h1>
           <p className={cn(
-            "text-sm md:text-lg text-white/80 mb-6 max-w-md transition-all duration-700 delay-75",
+            "text-xs md:text-lg text-white/80 mb-4 md:mb-6 max-w-xs md:max-w-md transition-all duration-700 delay-75",
             isTransitioning ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
           )}>
             {slide.subtitle}
@@ -124,7 +124,7 @@ export function HeroSlider() {
           <Link
             href={slide.link}
             className={cn(
-              "inline-flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-white/90 transition-all w-fit duration-700 delay-150",
+              "inline-flex items-center gap-2 bg-white text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full text-xs md:text-sm font-semibold hover:bg-white/90 transition-all w-fit duration-700 delay-150",
               isTransitioning ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
             )}
           >
