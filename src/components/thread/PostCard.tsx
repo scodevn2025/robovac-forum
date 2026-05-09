@@ -1,5 +1,6 @@
 import { UserInfoPanel } from "@/components/thread/UserInfoPanel";
 import { InteractionBar } from "@/components/thread/InteractionBar";
+import { PostActions } from "@/components/thread/PostActions";
 import { ThreadContent } from "@/components/thread/ThreadContent";
 import { formatDateTime } from "@/lib/helpers";
 import type { PostWithAuthor } from "@/types";
@@ -22,6 +23,15 @@ export function PostCard({ post, threadId, isMainPost = false }: PostCardProps) 
         <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
           {post.floorNum && <span>#{post.floorNum}</span>}
           <span>{formatDateTime(post.createdAt)}</span>
+          {post.updatedAt > post.createdAt && <span className="italic">(đã sửa)</span>}
+          <div className="ml-auto">
+            <PostActions
+              postId={post.id}
+              postAuthorId={post.authorId}
+              postContent={post.content}
+              threadId={threadId}
+            />
+          </div>
         </div>
 
         {/* Body */}

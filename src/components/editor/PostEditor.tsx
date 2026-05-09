@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { ImageUploader } from "@/components/editor/ImageUploader";
 import { CATEGORY_PREFIXES, GEO_FLAGS } from "@/lib/constants";
 
 interface Category {
@@ -156,18 +157,43 @@ export function PostEditor({ categories, initialData }: PostEditorProps) {
         </div>
       </div>
 
+      {/* Tags */}
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Tags (cách nhau bởi dấu phẩy)</label>
+        <Input
+          placeholder="VD: roborock, review, s8-maxv"
+          onChange={(e) => {
+            // Tags are stored in a hidden field for now
+            const tagsInput = document.getElementById("hidden-tags") as HTMLInputElement;
+            if (tagsInput) tagsInput.value = e.target.value;
+          }}
+        />
+        <input type="hidden" id="hidden-tags" name="tags" />
+        <p className="text-xs text-muted-foreground">Tối đa 5 tags, mỗi tag cách nhau bởi dấu phẩy</p>
+      </div>
+
+      {/* Image upload */}
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Ảnh đính kèm</label>
+        <ImageUploader
+          onImageUploaded={(url, _name) => {
+            setContent((prev) => prev + `\n\n[image:${url}]`);
+          }}
+        />
+      </div>
+
       {/* Content */}
       <div className="space-y-2">
         <label className="text-sm font-medium">Content *</label>
         <Textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="Write your thread content here... (markdown-style text)"
+          placeholder="Write your thread content here..."
           rows={12}
           className="font-mono text-sm"
         />
         <p className="text-xs text-muted-foreground">
-          Supports basic formatting: line breaks, lists, bold (**text**), italic (*text*)
+          Hỗ trợ: xuống dòng, danh sách, **in đậm**, *in nghiêng*. Kéo thả ảnh vào ô phía trên.
         </p>
       </div>
 
