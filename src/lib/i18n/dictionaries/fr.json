@@ -1,0 +1,72 @@
+{
+  "common": {
+    "home": "Accueil",
+    "search": "Rechercher",
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "signOut": "Déconnexion",
+    "profile": "Mon Profil",
+    "createThread": "Créer un sujet",
+    "adminPanel": "Panneau d'administration",
+    "postNow": "Publier"
+  },
+  "nav": {
+    "reviews": "Avis",
+    "discussion": "Discussion",
+    "troubleshooting": "Dépannage",
+    "brandForums": "Forums par Marque",
+    "deals": "Bons Plans"
+  },
+  "homepage": {
+    "title": "Bienvenue sur RoboVac Forum",
+    "subtitle": "La communauté ultime pour les passionnés de robots aspirateurs — toutes marques, tous modèles.",
+    "browseReviews": "Voir les avis",
+    "joinDiscussion": "Rejoindre la discussion",
+    "hotPosts": "Posts Populaires",
+    "quickLinks": "Liens Rapides",
+    "browseByBrand": "Parcourir par Marque"
+  },
+  "thread": {
+    "pinned": "Épinglé",
+    "digest": "Recommandé",
+    "views": "vues",
+    "replies": "Réponses",
+    "reply": "Répondre",
+    "leaveReply": "Laisser une réponse",
+    "postReply": "Publier la réponse",
+    "posting": "Publication...",
+    "share": "Partager",
+    "oldest": "Plus ancien",
+    "newest": "Plus récent"
+  },
+  "auth": {
+    "welcomeBack": "Bon retour",
+    "signInTo": "Connectez-vous à votre compte",
+    "signIn": "Se connecter",
+    "signingIn": "Connexion...",
+    "joinForum": "Rejoignez RoboVac Forum",
+    "createAccount": "Créez un compte pour commencer à publier",
+    "createAccountBtn": "Créer un compte",
+    "creating": "Création du compte...",
+    "username": "Nom d'utilisateur",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "region": "Région",
+    "orContinueWith": "ou continuer avec l'e-mail",
+    "orRegisterWith": "ou s'inscrire avec l'e-mail",
+    "continueWithGoogle": "Continuer avec Google",
+    "continueWithGithub": "Continuer avec GitHub",
+    "noAccount": "Pas encore de compte ?",
+    "hasAccount": "Déjà un compte ?",
+    "createOne": "Créer un compte",
+    "signInLink": "Se connecter"
+  },
+  "footer": {
+    "quickLinks": "Liens Rapides",
+    "legal": "Mentions Légales",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "rights": "Tous droits réservés"
+  }
+}

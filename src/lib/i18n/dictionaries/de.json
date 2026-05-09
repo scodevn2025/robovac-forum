@@ -1,0 +1,72 @@
+{
+  "common": {
+    "home": "Startseite",
+    "search": "Suche",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "signOut": "Abmelden",
+    "profile": "Mein Profil",
+    "createThread": "Thema erstellen",
+    "adminPanel": "Admin-Panel",
+    "postNow": "Jetzt posten"
+  },
+  "nav": {
+    "reviews": "Bewertungen",
+    "discussion": "Diskussion",
+    "troubleshooting": "Fehlerbehebung",
+    "brandForums": "Marken-Foren",
+    "deals": "Angebote"
+  },
+  "homepage": {
+    "title": "Willkommen im RoboVac Forum",
+    "subtitle": "Die ultimative Community für Staubsaugerroboter-Enthusiasten — alle Marken, alle Modelle.",
+    "browseReviews": "Bewertungen durchsuchen",
+    "joinDiscussion": "Diskussion beitreten",
+    "hotPosts": "Beliebte Beiträge",
+    "quickLinks": "Schnelllinks",
+    "browseByBrand": "Nach Marke durchsuchen"
+  },
+  "thread": {
+    "pinned": "Angepinnt",
+    "digest": "Empfohlen",
+    "views": "Aufrufe",
+    "replies": "Antworten",
+    "reply": "Antworten",
+    "leaveReply": "Antwort hinterlassen",
+    "postReply": "Antwort posten",
+    "posting": "Wird gepostet...",
+    "share": "Teilen",
+    "oldest": "Älteste",
+    "newest": "Neueste"
+  },
+  "auth": {
+    "welcomeBack": "Willkommen zurück",
+    "signInTo": "Melde dich in deinem Konto an",
+    "signIn": "Anmelden",
+    "signingIn": "Wird angemeldet...",
+    "joinForum": "Tritt dem RoboVac Forum bei",
+    "createAccount": "Erstelle ein Konto, um zu posten",
+    "createAccountBtn": "Konto erstellen",
+    "creating": "Konto wird erstellt...",
+    "username": "Benutzername",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "region": "Region",
+    "orContinueWith": "oder mit E-Mail fortfahren",
+    "orRegisterWith": "oder mit E-Mail registrieren",
+    "continueWithGoogle": "Mit Google fortfahren",
+    "continueWithGithub": "Mit GitHub fortfahren",
+    "noAccount": "Noch kein Konto?",
+    "hasAccount": "Bereits ein Konto?",
+    "createOne": "Konto erstellen",
+    "signInLink": "Anmelden"
+  },
+  "footer": {
+    "quickLinks": "Schnelllinks",
+    "legal": "Rechtliches",
+    "privacy": "Datenschutzerklärung",
+    "terms": "Nutzungsbedingungen",
+    "rights": "Alle Rechte vorbehalten"
+  }
+}

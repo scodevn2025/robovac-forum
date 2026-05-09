@@ -1,0 +1,72 @@
+{
+  "common": {
+    "home": "Home",
+    "search": "Cerca",
+    "login": "Accedi",
+    "register": "Registrati",
+    "signOut": "Esci",
+    "profile": "Mio Profilo",
+    "createThread": "Crea Discussione",
+    "adminPanel": "Pannello Admin",
+    "postNow": "Pubblica"
+  },
+  "nav": {
+    "reviews": "Recensioni",
+    "discussion": "Discussione",
+    "troubleshooting": "Risoluzione Problemi",
+    "brandForums": "Forum per Marchio",
+    "deals": "Offerte"
+  },
+  "homepage": {
+    "title": "Benvenuto su RoboVac Forum",
+    "subtitle": "La community definitiva per appassionati di robot aspirapolvere — tutti i marchi, tutti i modelli.",
+    "browseReviews": "Sfoglia Recensioni",
+    "joinDiscussion": "Unisciti alla Discussione",
+    "hotPosts": "Post Popolari",
+    "quickLinks": "Link Rapidi",
+    "browseByBrand": "Sfoglia per Marchio"
+  },
+  "thread": {
+    "pinned": "In Evidenza",
+    "digest": "In primo piano",
+    "views": "visualizzazioni",
+    "replies": "Risposte",
+    "reply": "Rispondi",
+    "leaveReply": "Lascia una Risposta",
+    "postReply": "Pubblica Risposta",
+    "posting": "Pubblicazione...",
+    "share": "Condividi",
+    "oldest": "Più vecchi",
+    "newest": "Più recenti"
+  },
+  "auth": {
+    "welcomeBack": "Bentornato",
+    "signInTo": "Accedi al tuo account",
+    "signIn": "Accedi",
+    "signingIn": "Accesso in corso...",
+    "joinForum": "Unisciti a RoboVac Forum",
+    "createAccount": "Crea un account per iniziare a pubblicare",
+    "createAccountBtn": "Crea Account",
+    "creating": "Creazione account...",
+    "username": "Nome utente",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Conferma Password",
+    "region": "Regione",
+    "orContinueWith": "o continua con email",
+    "orRegisterWith": "o registrati con email",
+    "continueWithGoogle": "Continua con Google",
+    "continueWithGithub": "Continua con GitHub",
+    "noAccount": "Non hai un account?",
+    "hasAccount": "Hai già un account?",
+    "createOne": "Creane uno",
+    "signInLink": "Accedi"
+  },
+  "footer": {
+    "quickLinks": "Link Rapidi",
+    "legal": "Note Legali",
+    "privacy": "Informativa sulla Privacy",
+    "terms": "Termini di Servizio",
+    "rights": "Tutti i Diritti Riservati"
+  }
+}

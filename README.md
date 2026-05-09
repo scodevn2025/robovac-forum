@@ -1,36 +1,148 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RoboVac Forum
+
+**The ultimate community for robot vacuum enthusiasts — all brands, all models.**
+
+A modern, full-featured forum built with Next.js 16, Tailwind CSS 4, Prisma 7, and NextAuth.js v5.
+
+## Features
+
+- **Thread System** — Create, browse, and reply to threads with rich text content
+- **Categories** — Organized by topic (Reviews, Discussion, Troubleshooting, Deals, Guides, Showcase, News)
+- **Brand Forums** — Dedicated sub-forums for Roborock, Dreame, iRobot, Ecovacs
+- **Carousel Banners** — Promotional image carousel with auto-play
+- **Thread Cards** — Badges (Sticky/Digest/Heat), geo flags, prefixes, interaction bar
+- **Filtering & Sorting** — Model filters, time filters, topic type filters, sort options
+- **Authentication** — Email/password + OAuth (Google, GitHub)
+- **Admin Panel** — Dashboard, CRUD categories/threads/users/banners
+- **i18n** — 4 languages (English, Deutsch, Français, Italiano)
+- **Responsive** — Mobile-friendly design
+- **Search** — Full-text search across threads, posts, and users
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 16.2.6 (App Router) |
+| CSS | Tailwind CSS 4.3.0 |
+| UI Components | shadcn/ui v4 (Base UI) |
+| Database | PostgreSQL + Prisma 7.8 |
+| Auth | NextAuth.js v5 beta |
+| Icons | Lucide React |
+| Validation | Zod + react-hook-form |
+| Dates | date-fns |
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- PostgreSQL 16+
+
+### Installation
+
+```bash
+git clone https://github.com/scodevn2025/robovac-forum.git
+cd robovac-forum
+npm install
+```
+
+### Environment Setup
+
+Copy `.env.example` to `.env` and configure:
+
+```env
+DATABASE_URL="postgresql://user:password@localhost:5432/robovac_forum"
+AUTH_SECRET="your-secret-key"
+AUTH_GOOGLE_ID=""
+AUTH_GOOGLE_SECRET=""
+AUTH_GITHUB_ID=""
+AUTH_GITHUB_SECRET=""
+```
+
+### Database Setup
+
+```bash
+npx prisma db push
+npx prisma generate
+npx tsx prisma/seed.ts
+```
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# → http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+```
+src/
+├── app/                    # App Router pages
+│   ├── admin/              # Admin panel
+│   ├── api/auth/           # NextAuth API routes
+│   ├── auth/               # Login/Register pages
+│   ├── f/[slug]/           # Category listing
+│   ├── post/new/           # New thread
+│   ├── search/             # Search page
+│   ├── t/[tid]/            # Thread detail
+│   └── u/[uid]/            # User profile
+├── components/
+│   ├── auth/               # Login/Register/OAuth/AuthGuard
+│   ├── category/           # FilterBar, ModelFilter, SubCategoryCard
+│   ├── editor/             # PostEditor
+│   ├── home/               # Carousel, ThreadCard, Pagination, Sidebar
+│   ├── layout/             # Header, Footer, Breadcrumb
+│   ├── search/             # SearchBar
+│   ├── shared/             # NotificationBell
+│   ├── thread/             # ThreadContent, PostCard, ReplyForm, InteractionBar
+│   ├── ui/                 # shadcn/ui components
+│   └── user/               # ProfileCard
+├── lib/
+│   ├── db/                 # Data access layer (thread, post, user, category, banner)
+│   ├── i18n/               # i18n config + dictionaries (en/de/fr/it)
+│   ├── auth.ts             # NextAuth configuration
+│   ├── constants.ts        # App constants
+│   ├── helpers.ts          # Date formatting, heat score
+│   ├── prisma.ts           # Prisma client singleton
+│   ├── utils.ts            # cn() utility
+│   └── validations.ts      # Zod schemas
+├── middleware.ts            # Auth middleware
+└── types/                   # TypeScript types
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Routes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Route | Description |
+|-------|-------------|
+| `/` | Homepage with carousel, thread feed, sidebar |
+| `/f/[slug]` | Category listing with filters |
+| `/t/[tid]` | Thread detail with replies |
+| `/u/[uid]` | User profile |
+| `/post/new` | Create new thread (auth required) |
+| `/search` | Full-text search |
+| `/auth/login` | Login page |
+| `/auth/register` | Register page |
+| `/admin` | Admin dashboard (admin only) |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Default Accounts
 
-## Deploy on Vercel
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@robovac-forum.com | admin123 |
+| User | demo@robovac-forum.com | password123 |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
+
+---
+
+Built by [scodevn2025](https://github.com/scodevn2025)

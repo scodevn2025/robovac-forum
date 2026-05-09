@@ -1,0 +1,72 @@
+{
+  "common": {
+    "home": "Home",
+    "search": "Search",
+    "login": "Login",
+    "register": "Register",
+    "signOut": "Sign Out",
+    "profile": "My Profile",
+    "createThread": "Create Thread",
+    "adminPanel": "Admin Panel",
+    "postNow": "Post Now"
+  },
+  "nav": {
+    "reviews": "Reviews",
+    "discussion": "Discussion",
+    "troubleshooting": "Troubleshooting",
+    "brandForums": "Brand Forums",
+    "deals": "Deals"
+  },
+  "homepage": {
+    "title": "Welcome to RoboVac Forum",
+    "subtitle": "The ultimate community for robot vacuum enthusiasts — all brands, all models.",
+    "browseReviews": "Browse Reviews",
+    "joinDiscussion": "Join Discussion",
+    "hotPosts": "Hot Posts",
+    "quickLinks": "Quick Links",
+    "browseByBrand": "Browse by Brand"
+  },
+  "thread": {
+    "pinned": "Pinned",
+    "digest": "Digest",
+    "views": "views",
+    "replies": "Replies",
+    "reply": "Reply",
+    "leaveReply": "Leave a Reply",
+    "postReply": "Post Reply",
+    "posting": "Posting...",
+    "share": "Share",
+    "oldest": "Oldest",
+    "newest": "Newest"
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "signInTo": "Sign in to your account",
+    "signIn": "Sign In",
+    "signingIn": "Signing in...",
+    "joinForum": "Join RoboVac Forum",
+    "createAccount": "Create an account to start posting",
+    "createAccountBtn": "Create Account",
+    "creating": "Creating account...",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "region": "Region",
+    "orContinueWith": "or continue with email",
+    "orRegisterWith": "or register with email",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithGithub": "Continue with GitHub",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "createOne": "Create one",
+    "signInLink": "Sign in"
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "rights": "All Rights Reserved"
+  }
+}
