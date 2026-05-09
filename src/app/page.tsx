@@ -52,26 +52,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       {/* Hero Banner Section */}
       <section className="bg-card border-b">
         <div className="mx-auto max-w-7xl px-4 py-6">
-          {banners.length > 0 ? (
-            <CarouselBanner banners={banners} />
-          ) : (
-            <div className="rounded-2xl hero-gradient p-8 md:p-12 text-white">
-              <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-                {th("title")}
-              </h1>
-              <p className="mt-2 text-white/80 max-w-2xl text-sm md:text-base">
-                {th("subtitle")}
-              </p>
-              <div className="mt-4 flex gap-3">
-                <Link href="/f/reviews" className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-primary hover:bg-white/90 transition-colors">
-                  {th("browseReviews")}
-                </Link>
-                <Link href="/f/discussion" className="rounded-lg bg-white/20 px-4 py-2 text-sm font-medium text-white hover:bg-white/30 transition-colors">
-                  {th("joinDiscussion")}
-                </Link>
-              </div>
-            </div>
-          )}
+          <CarouselBanner banners={banners} />
         </div>
       </section>
 
