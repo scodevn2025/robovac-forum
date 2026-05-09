@@ -89,20 +89,20 @@ export function VideoSection({ locale }: VideoSectionProps) {
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {LOCAL_VIDEOS.map((video, i) => (
-            <div key={i} className="flex-shrink-0 w-[340px] md:w-[480px] lg:w-[560px] snap-start">
-              <div className="relative rounded-xl overflow-hidden bg-black shadow-lg group">
+            <div key={i} className="flex-shrink-0 w-[300px] md:w-[360px] snap-start">
+              <div className="relative rounded-xl overflow-hidden bg-black shadow-md group">
                 {playing === i ? (
                   <video
                     autoPlay
                     controls
-                    className="w-full aspect-video"
+                    className="w-full h-[180px] md:h-[220px] object-cover"
                     poster={video.poster}
                     onEnded={() => setPlaying(null)}
                   >
                     <source src={video.src} type="video/mp4" />
                   </video>
                 ) : (
-                  <div className="relative aspect-video cursor-pointer" onClick={() => setPlaying(i)}>
+                  <div className="relative h-[180px] md:h-[220px] cursor-pointer" onClick={() => setPlaying(i)}>
                     <img
                       src={video.poster}
                       alt={video.title}
