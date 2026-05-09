@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { timeAgo } from "@/lib/helpers";
 import { cn } from "@/lib/utils";
