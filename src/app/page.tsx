@@ -5,6 +5,7 @@ import { TabFilter } from "@/components/home/TabFilter";
 import { ThreadList } from "@/components/home/ThreadList";
 import { HotPostsSidebar } from "@/components/home/HotPostsSidebar";
 import { Pagination } from "@/components/home/Pagination";
+import { VideoSection } from "@/components/home/VideoSection";
 import { getThreads, getHotThreads, type ThreadFilters } from "@/lib/db/thread";
 import { getActiveBanners } from "@/lib/db/banner";
 import { getLocale } from "@/lib/i18n/locale";
@@ -127,6 +128,9 @@ export default async function HomePage({ searchParams }: HomePageProps) {
                 </div>
               </div>
             </section>
+
+            {/* Video Reviews Section */}
+            <VideoSection locale={locale} />
           </div>
 
           {/* Sidebar */}
