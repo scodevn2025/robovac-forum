@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" fill="none">
+  <rect x="2" y="4" width="32" height="32" rx="8" fill="#16a34a"/>
+  <path d="M12 18a6 6 0 0 1 12 0v6h-2v-6a4 4 0 1 0-8 0v6h-2v-6z" fill="white"/>
+  <circle cx="18" cy="14" r="3" fill="white"/>
+  <text x="42" y="29" font-family="system-ui, sans-serif" font-weight="700" font-size="20" fill="currentColor">RoboVac Forum</text>
+</svg>
