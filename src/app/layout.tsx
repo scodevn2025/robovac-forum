@@ -5,7 +5,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SessionProvider } from "@/providers/session-provider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { SITE_NAME, SITE_DESCRIPTION } from "@/lib/constants";
+import { getLocale } from "@/lib/i18n/locale";
+import { SITE_NAME } from "@/lib/constants";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,22 +24,24 @@ export const metadata: Metadata = {
     default: SITE_NAME,
     template: `%s | ${SITE_NAME}`,
   },
-  description: SITE_DESCRIPTION,
+  description: "Diễn đàn robot hút bụi — đánh giá, so sánh, săn deal, sửa lỗi. Cộng đồng tất cả thương hiệu.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
   return (
-    <html lang="en" className={cn(geistSans.variable, geistMono.variable)}>
+    <html lang={locale} className={cn(geistSans.variable, geistMono.variable)}>
       <body className="min-h-screen flex flex-col antialiased">
         <SessionProvider>
           <TooltipProvider>
-            <Header />
+            <Header locale={locale} />
             <main className="flex-1">{children}</main>
-            <Footer />
+            <Footer locale={locale} />
           </TooltipProvider>
         </SessionProvider>
       </body>

@@ -9,13 +9,14 @@ interface HotThread {
 
 interface HotPostsSidebarProps {
   threads: HotThread[];
+  title?: string;
 }
 
-export function HotPostsSidebar({ threads }: HotPostsSidebarProps) {
+export function HotPostsSidebar({ threads, title = "Hot Posts" }: HotPostsSidebarProps) {
   return (
     <div className="rounded-xl border p-4">
       <h3 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">
-        Hot Posts
+        {title}
       </h3>
       <div className="space-y-3">
         {threads.map((thread, i) => (

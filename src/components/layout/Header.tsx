@@ -1,11 +1,7 @@
 import Link from "next/link";
 import { auth, signOut } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,36 +10,45 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { SITE_NAME } from "@/lib/constants";
+import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import type { Locale } from "@/lib/i18n/config";
 
-const NAV_ITEMS = [
-  { label: "Reviews", href: "/f/reviews" },
-  { label: "Discussion", href: "/f/discussion" },
-  { label: "Troubleshooting", href: "/f/troubleshooting" },
-  { label: "Brand Forums", href: "/f/brand-forums" },
-  { label: "Deals", href: "/f/deals" },
-];
+interface HeaderProps {
+  locale: Locale;
+}
 
-export async function Header() {
+export async function Header({ locale }: HeaderProps) {
   const session = await auth();
   const user = session?.user;
+  const dict = await getDictionary(locale);
+  const t = (key: string) => dict.common?.[key] ?? key;
+  const tn = (key: string) => dict.nav?.[key] ?? key;
+
+  const NAV_ITEMS = [
+    { label: tn("reviews"), href: "/f/reviews" },
+    { label: tn("discussion"), href: "/f/discussion" },
+    { label: tn("troubleshooting"), href: "/f/troubleshooting" },
+    { label: tn("brandForums"), href: "/f/brand-forums" },
+    { label: tn("deals"), href: "/f/deals" },
+  ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-          <img src="/logo.svg" alt={SITE_NAME} className="h-8 w-auto" />
-          <span className="hidden sm:inline text-primary">{SITE_NAME}</span>
+        <Link href="/" className="flex items-center gap-2 font-bold text-xl shrink-0">
+          <img src="/logo.svg" alt="RoboVac Forum" className="h-8 w-auto" />
+          <span className="hidden lg:inline text-primary">RoboVac Forum</span>
         </Link>
 
         {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden md:flex items-center gap-0.5">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-md hover:bg-muted transition-colors"
+              className="px-2.5 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-md hover:bg-muted transition-colors"
             >
               {item.label}
             </Link>
@@ -51,13 +56,13 @@ export async function Header() {
         </nav>
 
         {/* Actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
+          <LanguageSwitcher currentLocale={locale} />
+
           {user ? (
             <>
               <Link href="/post/new">
-                <Button variant="default" size="sm">
-                  Post Now
-                </Button>
+                <Button variant="default" size="sm">{t("postNow")}</Button>
               </Link>
               <DropdownMenu>
                 <DropdownMenuTrigger className="rounded-full cursor-pointer hover:opacity-80 transition-opacity">
@@ -72,32 +77,21 @@ export async function Header() {
                   <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
-                    <Link href={`/u/${user.id}`} className="w-full">
-                      My Profile
-                    </Link>
+                    <Link href={`/u/${user.id}`} className="w-full">{t("profile")}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link href="/post/new" className="w-full">
-                      Create Thread
-                    </Link>
+                    <Link href="/post/new" className="w-full">{t("createThread")}</Link>
                   </DropdownMenuItem>
                   {user.role === "ADMIN" && (
                     <DropdownMenuItem>
-                      <Link href="/admin" className="w-full">
-                        Admin Panel
-                      </Link>
+                      <Link href="/admin" className="w-full">{t("adminPanel")}</Link>
                     </DropdownMenuItem>
                   )}
                   <DropdownMenuSeparator />
-                  <form
-                    action={async () => {
-                      "use server";
-                      await signOut({ redirectTo: "/" });
-                    }}
-                  >
+                  <form action={async () => { "use server"; await signOut({ redirectTo: "/" }); }}>
                     <DropdownMenuItem>
                       <button type="submit" className="w-full text-left cursor-pointer">
-                        Sign Out
+                        {t("signOut")}
                       </button>
                     </DropdownMenuItem>
                   </form>
@@ -107,14 +101,10 @@ export async function Header() {
           ) : (
             <>
               <Link href="/auth/login">
-                <Button variant="ghost" size="sm">
-                  Login
-                </Button>
+                <Button variant="ghost" size="sm">{t("login")}</Button>
               </Link>
               <Link href="/auth/register">
-                <Button variant="default" size="sm">
-                  Register
-                </Button>
+                <Button variant="default" size="sm">{t("register")}</Button>
               </Link>
             </>
           )}

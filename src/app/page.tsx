@@ -7,92 +7,53 @@ import { HotPostsSidebar } from "@/components/home/HotPostsSidebar";
 import { Pagination } from "@/components/home/Pagination";
 import { getThreads, getHotThreads, type ThreadFilters } from "@/lib/db/thread";
 import { getActiveBanners } from "@/lib/db/banner";
-import { SITE_NAME, SITE_DESCRIPTION, BRANDS, THREADS_PER_PAGE } from "@/lib/constants";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { BRANDS, THREADS_PER_PAGE } from "@/lib/constants";
 import type { ThreadWithRelations } from "@/types";
-import type { Banner } from "@/generated/prisma/client";
 
 interface HomePageProps {
   searchParams: Promise<{ tab?: string; page?: string }>;
 }
 
-// Placeholder threads for when DB is not yet set up
 const PLACEHOLDER_THREADS: ThreadWithRelations[] = [
   {
-    id: "demo-1",
-    title: "Roborock S8 MaxV Ultra vs Dreame X40 Ultra — Which is the King?",
-    content: "",
-    excerpt: "After testing both flagships for 2 weeks each, here's my detailed comparison.",
-    categoryId: "",
-    authorId: "",
-    prefix: "Comparison",
-    isSticky: true,
-    isDigest: true,
-    heatScore: 98,
-    viewCount: 3200,
-    likeCount: 87,
-    favCount: 34,
-    replyCount: 56,
-    geoFlag: "DE",
-    featureImage: null,
-    status: "ACTIVE",
-    isPoll: false,
-    isReward: false,
-    modelTypeId: null,
-    lastPostAt: new Date(),
-    lastPostById: null,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    id: "demo-1", title: "Roborock S8 MaxV Ultra vs Dreame X40 Ultra — Đâu là vua robot 2026?",
+    content: "", excerpt: "Sau 2 tuần test cả 2 flagship, đây là so sánh chi tiết của mình.", categoryId: "", authorId: "",
+    prefix: "So sánh", isSticky: true, isDigest: true, heatScore: 98, viewCount: 3200,
+    likeCount: 87, favCount: 34, replyCount: 56, geoFlag: "DE", featureImage: null, status: "ACTIVE",
+    isPoll: false, isReward: false, modelTypeId: null, lastPostAt: new Date(), lastPostById: null,
+    createdAt: new Date(), updatedAt: new Date(),
     author: { id: "u1", username: "roboter_de", image: null, avatarUrl: null, geoFlag: "DE" },
-    category: { id: "c1", name: "Reviews", slug: "reviews" },
+    category: { id: "c1", name: "Đánh giá", slug: "reviews" },
   },
   {
-    id: "demo-2",
-    title: "Best Robot Vacuum Deals — Amazon Spring Sale 2026 Megathread",
-    content: "",
-    excerpt: "Amazon Spring Sale is live! Post the best robot vacuum deals you find here.",
-    categoryId: "",
-    authorId: "",
-    prefix: "Deal Alert",
-    isSticky: true,
-    isDigest: false,
-    heatScore: 91,
-    viewCount: 4800,
-    likeCount: 65,
-    favCount: 42,
-    replyCount: 89,
-    geoFlag: "GLOBAL",
-    featureImage: null,
-    status: "ACTIVE",
-    isPoll: false,
-    isReward: false,
-    modelTypeId: null,
-    lastPostAt: new Date(Date.now() - 900000),
-    lastPostById: null,
-    createdAt: new Date(Date.now() - 86400000),
-    updatedAt: new Date(),
+    id: "demo-2", title: "Săn deal robot hút bụi — Amazon Sale 2026 Megathread",
+    content: "", excerpt: "Amazon Spring Sale đang diễn ra! Tổng hợp deal ngon nhất.", categoryId: "", authorId: "",
+    prefix: "Deal", isSticky: true, isDigest: false, heatScore: 91, viewCount: 4800,
+    likeCount: 65, favCount: 42, replyCount: 89, geoFlag: "GLOBAL", featureImage: null, status: "ACTIVE",
+    isPoll: false, isReward: false, modelTypeId: null, lastPostAt: new Date(Date.now() - 900000), lastPostById: null,
+    createdAt: new Date(Date.now() - 86400000), updatedAt: new Date(),
     author: { id: "u2", username: "vac_fan", image: null, avatarUrl: null, geoFlag: "GB" },
-    category: { id: "c4", name: "Deals", slug: "deals" },
+    category: { id: "c4", name: "Khuyến mãi", slug: "deals" },
   },
-];
-
-const PLACEHOLDER_BANNERS = [
-  { id: "b1", title: "Roborock vs Dreame Comparison", imageUrl: "/banners/comparison-banner.jpg", linkUrl: "/t/demo-1", sortOrder: 0, isActive: true, categoryId: null, threadId: null, createdAt: new Date(), updatedAt: new Date() },
-  { id: "b2", title: "Amazon Spring Sale Deals", imageUrl: "/banners/deals-banner.jpg", linkUrl: "/t/demo-2", sortOrder: 1, isActive: true, categoryId: null, threadId: null, createdAt: new Date(), updatedAt: new Date() },
-  { id: "b3", title: "Beginner's Guide", imageUrl: "/banners/guide-banner.jpg", linkUrl: "/f/guides", sortOrder: 2, isActive: true, categoryId: null, threadId: null, createdAt: new Date(), updatedAt: new Date() },
-  { id: "b4", title: "Join the Community", imageUrl: "/banners/community-banner.jpg", linkUrl: "/f/discussion", sortOrder: 3, isActive: true, categoryId: null, threadId: null, createdAt: new Date(), updatedAt: new Date() },
 ];
 
 export default async function HomePage({ searchParams }: HomePageProps) {
   const params = await searchParams;
   const tab = params.tab ?? "featured";
   const page = Number(params.page) || 1;
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+  const th = (key: string) => dict.homepage?.[key] ?? key;
+  const tn = (key: string) => dict.nav?.[key] ?? key;
 
   const filters: ThreadFilters = { tab: tab as ThreadFilters["tab"], page, limit: THREADS_PER_PAGE };
 
   let threads: ThreadWithRelations[] = PLACEHOLDER_THREADS;
   let totalPages = 1;
-  let banners: Banner[] = PLACEHOLDER_BANNERS;
-  let hotThreads: { id: string; title: string; featureImage: string | null; heatScore: number }[] = [];
+  let banners: Array<{ id: string; title: string; imageUrl: string; linkUrl: string | null }> = [];
+  let hotThreads: Array<{ id: string; title: string; featureImage: string | null; heatScore: number }> = [];
 
   try {
     const [threadResult, bannersResult, hotResult] = await Promise.all([
@@ -105,48 +66,62 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     banners = bannersResult;
     hotThreads = hotResult;
   } catch {
-    // DB not connected yet — use placeholders
+    // Fallback to placeholder
   }
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6">
-      {/* Carousel Banner */}
+      {/* Hero section */}
       <section className="mb-6">
-        <CarouselBanner banners={banners} />
+        {banners.length > 0 ? (
+          <CarouselBanner banners={banners} />
+        ) : (
+          <div className="rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-background p-8 md:p-12">
+            <h1 className="text-2xl md:text-3xl font-bold">{th("title")}</h1>
+            <p className="mt-2 text-muted-foreground max-w-2xl">{th("subtitle")}</p>
+            <div className="mt-4 flex gap-3">
+              <Link href="/f/reviews" className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90">
+                {th("browseReviews")}
+              </Link>
+              <Link href="/f/discussion" className="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-muted">
+                {th("joinDiscussion")}
+              </Link>
+            </div>
+          </div>
+        )}
       </section>
 
       <div className="flex gap-8">
-        {/* Main content */}
+        {/* Main */}
         <div className="flex-1 min-w-0">
-          {/* Tab Filter */}
-          <TabFilter currentTab={tab} />
+          <TabFilter currentTab={tab} labels={{
+            featured: th("featured"),
+            new: th("new"),
+            hot: th("hot"),
+          }} />
 
-          {/* Thread List */}
-          <Suspense
-            fallback={
-              <div className="space-y-4 py-4">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <div key={i} className="animate-pulse flex gap-4">
-                    <div className="h-10 w-10 rounded-full bg-muted" />
-                    <div className="flex-1 space-y-2">
-                      <div className="h-4 bg-muted rounded w-1/4" />
-                      <div className="h-5 bg-muted rounded w-3/4" />
-                      <div className="h-4 bg-muted rounded w-full" />
-                    </div>
+          <Suspense fallback={
+            <div className="space-y-4 py-4">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="animate-pulse flex gap-4">
+                  <div className="h-10 w-10 rounded-full bg-muted shrink-0" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 bg-muted rounded w-1/4" />
+                    <div className="h-5 bg-muted rounded w-3/4" />
+                    <div className="h-4 bg-muted rounded w-full" />
                   </div>
-                ))}
-              </div>
-            }
-          >
+                </div>
+              ))}
+            </div>
+          }>
             <ThreadList threads={threads} />
           </Suspense>
 
-          {/* Pagination - top + bottom */}
           {totalPages > 1 && <Pagination currentPage={page} totalPages={totalPages} />}
 
-          {/* Brand showcase */}
-          <section className="mt-12 py-8 border-t">
-            <h2 className="text-xl font-bold mb-4">Browse by Brand</h2>
+          {/* Brands */}
+          <section className="mt-10 py-8 border-t">
+            <h2 className="text-xl font-bold mb-4">{th("browseByBrand")}</h2>
             <div className="flex flex-wrap gap-2">
               {BRANDS.map((brand) => (
                 <Link
@@ -164,23 +139,24 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         {/* Sidebar */}
         <aside className="hidden lg:block w-72 shrink-0">
           <div className="sticky top-20 space-y-4">
-            <HotPostsSidebar threads={hotThreads.length > 0 ? hotThreads : [
-              { id: "demo-1", title: "Roborock S8 MaxV Ultra vs Dreame X40 Ultra — Which is the King?", featureImage: null, heatScore: 98 },
-              { id: "demo-2", title: "Best Robot Vacuum Deals — Amazon Spring Sale 2026", featureImage: null, heatScore: 91 },
-              { id: "demo-3", title: "Beginner's Guide: Choosing Your First Robot Vacuum", featureImage: null, heatScore: 85 },
-            ]} />
+            <HotPostsSidebar threads={hotThreads} title={th("hotPosts")} />
 
-            {/* Quick links */}
-            <div className="rounded-xl border p-4">
+            <div className="roud-xl border p-4">
               <h3 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">
-                Quick Links
+                {th("quickLinks")}
               </h3>
               <div className="space-y-1 text-sm">
-                <Link href="/f/reviews" className="block text-muted-foreground hover:text-primary">Reviews</Link>
-                <Link href="/f/discussion" className="block text-muted-foreground hover:text-primary">Discussion</Link>
-                <Link href="/f/troubleshooting" className="block text-muted-foreground hover:text-primary">Troubleshooting</Link>
-                <Link href="/f/deals" className="block text-muted-foreground hover:text-primary">Deals & Discounts</Link>
-                <Link href="/f/guides" className="block text-muted-foreground hover:text-primary">Guides & How-To</Link>
+                {[
+                  { label: tn("reviews"), href: "/f/reviews" },
+                  { label: tn("discussion"), href: "/f/discussion" },
+                  { label: tn("troubleshooting"), href: "/f/troubleshooting" },
+                  { label: tn("deals"), href: "/f/deals" },
+                  { label: tn("guides"), href: "/f/guides" },
+                ].map((link) => (
+                  <Link key={link.href} href={link.href} className="block text-muted-foreground hover:text-primary">
+                    {link.label}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>

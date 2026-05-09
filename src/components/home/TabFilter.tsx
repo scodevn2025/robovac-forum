@@ -3,17 +3,17 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-const TABS = [
-  { label: "Featured", value: "featured" },
-  { label: "New", value: "new" },
-  { label: "Hot", value: "hot" },
-] as const;
-
 interface TabFilterProps {
   currentTab?: string;
+  labels?: { featured: string; new: string; hot: string };
 }
 
-export function TabFilter({ currentTab = "featured" }: TabFilterProps) {
+export function TabFilter({ currentTab = "featured", labels }: TabFilterProps) {
+  const TABS = [
+    { label: labels?.featured ?? "Featured", value: "featured" },
+    { label: labels?.new ?? "New", value: "new" },
+    { label: labels?.hot ?? "Hot", value: "hot" },
+  ] as const;
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -44,4 +44,4 @@ export function TabFilter({ currentTab = "featured" }: TabFilterProps) {
   );
 }
 
-export { TABS };
+
