@@ -72,7 +72,7 @@ export default async function ThreadPage({ params, searchParams }: ThreadPagePro
 
         <h1 className="text-xl font-bold">{thread.title}</h1>
         <p className="text-xs text-muted-foreground mt-1">
-          {thread.viewCount.toLocaleString()} views · Posted by {thread.author.username}
+          {thread.viewCount.toLocaleString("en-US")} views · Posted by {thread.author.username}
         </p>
 
         <div className="mt-3">

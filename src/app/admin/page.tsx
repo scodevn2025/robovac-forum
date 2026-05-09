@@ -41,7 +41,7 @@ export default async function AdminDashboard() {
         {cards.map((card) => (
           <div key={card.label} className={`rounded-xl p-5 ${card.color}`}>
             <p className="text-sm opacity-80">{card.label}</p>
-            <p className="text-3xl font-bold mt-1">{card.value.toLocaleString()}</p>
+            <p className="text-3xl font-bold mt-1">{card.value.toLocaleString("en-US")}</p>
           </div>
         ))}
       </div>
