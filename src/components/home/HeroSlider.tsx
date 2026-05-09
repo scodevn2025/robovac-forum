@@ -80,7 +80,7 @@ export function HeroSlider() {
       onMouseLeave={() => setIsPaused(false)}
     >
       {/* Slides container */}
-      <div className="relative h-[220px] md:h-[320px] lg:h-[380px]">
+      <div className="relative h-[280px] md:h-[400px] lg:h-[460px]">
         {/* Background */}
         <div className={cn("absolute inset-0 transition-opacity duration-700", isTransitioning ? "opacity-50" : "opacity-100")}>
           {slide.type === "video" ? (

@@ -95,14 +95,14 @@ export function VideoSection({ locale }: VideoSectionProps) {
                   <video
                     autoPlay
                     controls
-                    className="w-full h-[180px] md:h-[220px] object-cover"
+                    className="w-full h-[200px] md:h-[250px] object-cover"
                     poster={video.poster}
                     onEnded={() => setPlaying(null)}
                   >
                     <source src={video.src} type="video/mp4" />
                   </video>
                 ) : (
-                  <div className="relative h-[180px] md:h-[220px] cursor-pointer" onClick={() => setPlaying(i)}>
+                  <div className="relative h-[200px] md:h-[250px] cursor-pointer" onClick={() => setPlaying(i)}>
                     <img
                       src={video.poster}
                       alt={video.title}
