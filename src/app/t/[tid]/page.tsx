@@ -6,6 +6,8 @@ import { PostCard } from "@/components/thread/PostCard";
 import { ThreadContent } from "@/components/thread/ThreadContent";
 import { ReplyForm } from "@/components/thread/ReplyForm";
 import { InteractionBar } from "@/components/thread/InteractionBar";
+import { ModActions } from "@/components/thread/ModActions";
+import { auth } from "@/lib/auth";
 import { getThreadById, getPostsByThreadId } from "@/lib/db/thread";
 import { SITE_NAME } from "@/lib/constants";
 import type { PostWithAuthor } from "@/types";
@@ -31,9 +33,11 @@ export default async function ThreadPage({ params, searchParams }: ThreadPagePro
   const page = Number(sp.page) || 1;
   const order = (sp.order as "asc" | "desc") || "asc";
 
+  const session = await auth();
   const thread = await getThreadById(tid).catch(() => null);
   if (!thread) notFound();
 
+  const isLocked = thread.status === "LOCKED";
   let posts: PostWithAuthor[] = [];
   let totalPages = 1;
 
@@ -75,12 +79,25 @@ export default async function ThreadPage({ params, searchParams }: ThreadPagePro
           {thread.viewCount.toLocaleString("en-US")} views · Posted by {thread.author.username}
         </p>
 
-        <div className="mt-3">
+        {isLocked && (
+          <div className="mt-2 rounded-lg bg-destructive/10 border border-destructive/20 p-3 text-sm text-destructive font-medium">
+            🔒 Chủ đề này đã bị khóa. Bạn không thể gửi trả lời mới.
+          </div>
+        )}
+
+        <div className="mt-3 flex flex-wrap items-center gap-3">
           <InteractionBar
             likeCount={thread.likeCount}
             favCount={thread.favCount}
             replyCount={thread.replyCount}
             threadId={tid}
+          />
+          <ModActions
+            threadId={tid}
+            isSticky={thread.isSticky}
+            isDigest={thread.isDigest}
+            isLocked={isLocked}
+            userRole={session?.user?.role}
           />
         </div>
       </div>
@@ -122,8 +139,8 @@ export default async function ThreadPage({ params, searchParams }: ThreadPagePro
         </div>
       </Suspense>
 
-      {/* Reply form */}
-      <ReplyForm threadId={tid} />
+      {/* Reply form — only if not locked */}
+      {!isLocked && <ReplyForm threadId={tid} />}
     </div>
   );
 }

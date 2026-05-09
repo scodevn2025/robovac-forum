@@ -6,6 +6,7 @@ import { SessionProvider } from "@/providers/session-provider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { getLocale } from "@/lib/i18n/locale";
+import { ChatBox } from "@/components/shared/ChatBox";
 import { SITE_NAME } from "@/lib/constants";
 import "./globals.css";
 
@@ -42,6 +43,7 @@ export default async function RootLayout({
             <Header locale={locale} />
             <main className="flex-1">{children}</main>
             <Footer locale={locale} />
+            <ChatBox />
           </TooltipProvider>
         </SessionProvider>
       </body>
