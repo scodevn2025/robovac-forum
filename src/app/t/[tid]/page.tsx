@@ -7,6 +7,8 @@ import { ThreadContent } from "@/components/thread/ThreadContent";
 import { ReplyForm } from "@/components/thread/ReplyForm";
 import { InteractionBar } from "@/components/thread/InteractionBar";
 import { ModActions } from "@/components/thread/ModActions";
+import { ReactionPicker } from "@/components/thread/ReactionPicker";
+import { WatchButton } from "@/components/thread/WatchButton";
 import { auth } from "@/lib/auth";
 import { getThreadById, getPostsByThreadId } from "@/lib/db/thread";
 import { SITE_NAME } from "@/lib/constants";
@@ -86,12 +88,14 @@ export default async function ThreadPage({ params, searchParams }: ThreadPagePro
         )}
 
         <div className="mt-3 flex flex-wrap items-center gap-3">
+          <ReactionPicker threadId={tid} />
           <InteractionBar
             likeCount={thread.likeCount}
             favCount={thread.favCount}
             replyCount={thread.replyCount}
             threadId={tid}
           />
+          <WatchButton threadId={tid} />
           <ModActions
             threadId={tid}
             isSticky={thread.isSticky}
